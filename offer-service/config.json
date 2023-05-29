@@ -12,7 +12,7 @@
     "PUBLIC_KEY_PATH": "public.pem",
     "PRIVATE_KEY_PATH": "private.pem",
     "MOCKUP_TOPIC": "arn:aws:sns:ap-southeast-1:632537985342:MockupTopic",
-    "DEVELOPMENT_MONGO_DATABASE_URL": "mongodb+srv://denipanjid:JZyrCH3FfoQzWOt7@agreeculture.abvhgly.mongodb.net/test",
+    "DEVELOPMENT_MONGO_DATABASE_URL": "mongodb+srv://denipanji:KOKIOonGVDN4jXNI@agreeculture.wupdwyx.mongodb.net/offer-service",
     "MINIO": {
         "accessKey": "",
         "secretKey": "",

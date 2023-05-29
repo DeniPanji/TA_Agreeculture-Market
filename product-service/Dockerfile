@@ -8,6 +8,6 @@ RUN mkdir -p /usr/src/app
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 RUN npm install --silent
-EXPOSE 9000
+EXPOSE 9020
 
 CMD ["npm", "start"]

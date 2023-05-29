@@ -45,6 +45,7 @@
     "image-downloader": "3.3.0",
     "jsftp": "2.0.0",
     "jsonwebtoken": "^8.3.0",
+    "kafkajs": "^2.2.4",
     "mariadb": "^3.0.1",
     "minio": "^7.0.32",
     "mongodb": "^3.7.3",

@@ -2,10 +2,12 @@
 // const rp = require('request-promise');
 const model = require('./command_model');
 const command = require('./command');
+const query = require('../queries/query');
 // const query = require('../queries/query');
 // const wrapper = require('../../../../helpers/utils/wrapper');
 // const config = require('../../../../infra/configs/global_config');
 const validate = require('validate.js');
+const wrapper = require('../../../../helpers/utils/wrapper');
 // const logger = require('../../../../helpers/utils/logger');
 // const SNS = require('../../../../helpers/components/aws-sns/sns');
 // const Emitter = require('../../../../helpers/events/event_emitter');
@@ -14,6 +16,11 @@ const validate = require('validate.js');
 class Cart{
 
   async addNewCart(payload){
+    const { id } = payload;
+    const cart = await query.findOneCart({id});
+    if(!cart.err){
+      return wrapper.error('error', 'item already exist', 400);
+    }
     const data = [payload];
     let view = model.generalCart();
     view = data.reduce((accumulator, value) => {
@@ -29,6 +36,11 @@ class Cart{
   }
 
   async updateCart(params, payload){
+    const { id } = payload;
+    const cart = await query.findOneCart({id});
+    if (cart.err) {
+      return wrapper.error('error', 'item not found', 400);
+    }
     const data = [payload];
     let view = model.generalCart();
     view = data.reduce((accumulator, value) => {

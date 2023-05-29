@@ -2,8 +2,9 @@
 // const rp = require('request-promise');
 const model = require('./command_model');
 const command = require('./command');
+const query = require('../queries/query');
 // const query = require('../queries/query');
-// const wrapper = require('../../../../helpers/utils/wrapper');
+const wrapper = require('../../../../helpers/utils/wrapper');
 // const config = require('../../../../infra/configs/global_config');
 const validate = require('validate.js');
 // const logger = require('../../../../helpers/utils/logger');
@@ -14,6 +15,11 @@ const validate = require('validate.js');
 class Offer{
 
   async addNewOffer(payload){
+    const { id } = payload;
+    const offer = await query.findOneOffer({id});
+    if (!offer.err) {
+      return wrapper.error('error', 'offer already exist', 400);
+    }
     const data = [payload];
     let view = model.generalOffer();
     view = data.reduce((accumulator, value) => {
@@ -33,6 +39,11 @@ class Offer{
   }
 
   async updateOffer(params, payload){
+    const { id } = payload;
+    const offer = await query.findOneOffer({id});
+    if (offer.err) {
+      return wrapper.error('error', 'offer not found', 400);
+    }
     const data = [payload];
     let view = model.generalOffer();
     view = data.reduce((accumulator, value) => {

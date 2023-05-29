@@ -3,6 +3,7 @@
 const wrapper = require('../../../helpers/utils/wrapper');
 const validator = require('../utils/validator');
 // const queryParser = require('../utils/query_parser');
+//const run = require('../../../../producer');
 const queryHandler = require('../repositories/queries/query_handler');
 const commandHandler = require('../repositories/commands/command_handler');
 
@@ -21,6 +22,7 @@ const getOneOffer = async (req, res, next) => {
   const sendResponse = async (result) => {
     (result.err) ? wrapper.response(res,'fail',result) :
       wrapper.response(res, 'success', result, 'Your Request Has Been Processed');
+    //run(result);
   };
 
   sendResponse(await getRequest(validateParam));

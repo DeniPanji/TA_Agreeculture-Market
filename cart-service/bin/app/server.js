@@ -60,7 +60,7 @@ let AppServer = function(){
     wrapper.response(res,'success',wrapper.data('Index'),'This service is running properly');
   });
 
-  //course
+  //cart
   this.server.post('/api/v1/cart/', cartHandler.postOneCart);
   this.server.get('/api/v1/cart/', cartHandler.getAllCarts);
   this.server.get('/api/v1/cart/:id', cartHandler.getOneCart);

@@ -2,8 +2,8 @@
 // const rp = require('request-promise');
 const model = require('./command_model');
 const command = require('./command');
-// const query = require('../queries/query');
-// const wrapper = require('../../../../helpers/utils/wrapper');
+const query = require('../queries/query');
+const wrapper = require('../../../../helpers/utils/wrapper');
 // const config = require('../../../../infra/configs/global_config');
 const validate = require('validate.js');
 // const logger = require('../../../../helpers/utils/logger');
@@ -14,6 +14,11 @@ const validate = require('validate.js');
 class Transaction{
 
   async addNewTransaction(payload){
+    const { id } = payload;
+    const transaction = await query.findOneTransaction({id});
+    if (!transaction.err) {
+      return wrapper.error('error', 'transaction already exist');
+    }
     const data = [payload];
     let view = model.generalTransaction();
     view = data.reduce((accumulator, value) => {
@@ -29,6 +34,11 @@ class Transaction{
   }
 
   async updateTransaction(params, payload){
+    const { id } = payload;
+    const transaction = await query.findOneTransaction({id});
+    if (transaction.err) {
+      return wrapper.error('error', 'transaction not found', 404);
+    }
     const data = [payload];
     let view = model.generalTransaction();
     view = data.reduce((accumulator, value) => {

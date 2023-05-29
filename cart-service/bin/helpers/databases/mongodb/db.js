@@ -1,10 +1,12 @@
+/* eslint-disable no-console */
+/* eslint-disable no-useless-escape */
 
 
 const mongoConnection = require('./connection');
 // const Emitter = require('../../events/event_emitter');
 const wrapper = require('../../utils/wrapper');
 const validate = require('validate.js');
-const logger = require('../../utils/logger');
+//const logger = require('../../utils/logger');
 
 class DB{
   constructor(config){
@@ -24,13 +26,13 @@ class DB{
   }
 
   async findOne(parameter){
-    let ctx = 'mongodb-findOne';
+    //let ctx = 'mongodb-findOne';
     const config = this.config;
     const dbName = await this.getDatabase();
     const collectionName = this.collectionName;
     const result = await mongoConnection.getConnection(config);
     if(result.err){
-      logger.log(ctx, result.err.message, 'Error mongodb connection');
+      //logger.log(ctx, result.err.message, 'Error mongodb connection');
       return result;
     }
     try{
@@ -44,20 +46,20 @@ class DB{
       return wrapper.data(recordset);
 
     }catch(err){
-      logger.log(ctx, err.message, 'Error find data in mongodb');
+      //logger.log(ctx, err.message, 'Error find data in mongodb');
       return wrapper.error(`Error Find One Mongo ${err.message}`,`${err.message}`,409);
     }
 
   }
 
   async findMany(parameter){
-    let ctx = 'mongodb-findMany';
+    //let ctx = 'mongodb-findMany';
     const config = this.config;
     const dbName = await this.getDatabase();
     const collectionName = this.collectionName;
     const result = await mongoConnection.getConnection(config);
     if(result.err){
-      logger.log(ctx, result.err.message, 'Error mongodb connection');
+      //logger.log(ctx, result.err.message, 'Error mongodb connection');
       return result;
     }
     try{
@@ -71,20 +73,20 @@ class DB{
       return wrapper.data(recordset);
 
     }catch(err){
-      logger.log(ctx, err.message, 'Error find data in mongodb');
+      //logger.log(ctx, err.message, 'Error find data in mongodb');
       return wrapper.error(`Error Find Many Mongo ${err.message}`,`${err.message}`,409);
     }
 
   }
 
   async insertOne(document){
-    let ctx = 'mongodb-insertOne';
+    //let ctx = 'mongodb-insertOne';
     const config = this.config;
     const dbName = await this.getDatabase();
     const collectionName = this.collectionName;
     const result = await mongoConnection.getConnection(config);
     if(result.err){
-      logger.log(ctx, result.err.message, 'Error mongodb connection');
+      //logger.log(ctx, result.err.message, 'Error mongodb connection');
       return result;
     }
     try{
@@ -98,21 +100,21 @@ class DB{
       return wrapper.data(document,'created',201);
 
     }catch(err){
-      logger.log(ctx, err.message, 'Error insert data in mongodb');
+      //logger.log(ctx, err.message, 'Error insert data in mongodb');
       return wrapper.error(`Error Insert One Mongo ${err.message}`,`${err.message}`,409);
     }
 
   }
 
   async insertMany(data){
-    let ctx = 'mongodb-insertMany';
+    //let ctx = 'mongodb-insertMany';
     const document = data;
     const config = this.config;
     const dbName = await this.getDatabase();
     const collectionName = this.collectionName;
     const result = await mongoConnection.getConnection(config);
     if(result.err){
-      logger.log(ctx, result.err.message, 'Error mongodb connection');
+      //logger.log(ctx, result.err.message, 'Error mongodb connection');
       return result;
     }
     try{
@@ -126,20 +128,20 @@ class DB{
       return wrapper.data(document,'created',201);
 
     }catch(err){
-      logger.log(ctx, err.message, 'Error insert data in mongodb');
+      //logger.log(ctx, err.message, 'Error insert data in mongodb');
       return wrapper.error(`Error Insert Many Mongo ${err.message}`,`${err.message}`,409);
     }
 
   }
 
   async upsertOne(parameter,updateQuery){
-    let ctx = 'mongodb-upsertOne';
+    //let ctx = 'mongodb-upsertOne';
     const config = this.config;
     const dbName = await this.getDatabase();
     const collectionName = this.collectionName;
     const result = await mongoConnection.getConnection(config);
     if(result.err){
-      logger.log(ctx, result.err.message, 'Error mongodb connection');
+      //logger.log(ctx, result.err.message, 'Error mongodb connection');
       return result;
     }
     try{
@@ -160,21 +162,21 @@ class DB{
 
       }
     }catch(err){
-      logger.log(ctx, err.message, 'Error upsert data in mongodb');
+      //logger.log(ctx, err.message, 'Error upsert data in mongodb');
       return wrapper.error(`Error Upsert Mongo ${err.message}`,`${err.message}`,409);
     }
 
   }
 
   async deleteOne(parameter){
-    let ctx = 'mongodb-delOne';
+    //let ctx = 'mongodb-delOne';
     const config = this.config;
     const dbName = await this.getDatabase();
     const collectionName = this.collectionName;
     const result = await mongoConnection.getConnection(config);
 
     if(result.err){
-      logger.log(ctx, result.err.message, 'Error mongodb connection');
+      //logger.log(ctx, result.err.message, 'Error mongodb connection');
       return result;
     }
     try{
@@ -189,7 +191,7 @@ class DB{
       return wrapper.data('Data Found','Your Request Has Been Processed',200);
 
     }catch(err){
-      logger.log(ctx, err.message, 'Error find data in mongodb');
+      //logger.log(ctx, err.message, 'Error find data in mongodb');
       return wrapper.error(`Error Find One Mongo ${err.message}`,`${err.message}`,409);
     }
 
@@ -197,13 +199,13 @@ class DB{
 
 
   async findAllData(fieldName ,row, page, param){
-    let ctx = 'mongodb-findAllData';
+    //let ctx = 'mongodb-findAllData';
     const config = this.config;
     const dbName = await this.getDatabase();
     const collectionName = this.collectionName;
     const result = await mongoConnection.getConnection(config);
     if(result.err){
-      logger.log(ctx, result.err.message, 'Error mongodb connection');
+      //logger.log(ctx, result.err.message, 'Error mongodb connection');
       return result;
     }
     try{
@@ -220,7 +222,7 @@ class DB{
       return wrapper.data(recordset);
 
     }catch(err){
-      logger.log(ctx, err.message, 'Error upsert data in mongodb');
+      //logger.log(ctx, err.message, 'Error upsert data in mongodb');
       return wrapper.error('Error Mongo',`${err.message}`,409);
     }
 
@@ -228,13 +230,13 @@ class DB{
   }
 
   async countData(param){
-    let ctx = 'mongodb-countData';
+    //let ctx = 'mongodb-countData';
     const config = this.config;
     const dbName = await this.getDatabase();
     const collectionName = this.collectionName;
     const result = await mongoConnection.getConnection(config);
     if(result.err){
-      logger.log(ctx, result.err.message, 'Error mongodb connection');
+      //logger.log(ctx, result.err.message, 'Error mongodb connection');
       return result;
     }
     try{
@@ -248,7 +250,7 @@ class DB{
       return wrapper.data(recordset);
 
     }catch(err){
-      logger.log(ctx, err.message, 'Error count data in mongodb');
+      //logger.log(ctx, err.message, 'Error count data in mongodb');
       return wrapper.error('Error Mongo',`${err.message}`,409);
     }
 

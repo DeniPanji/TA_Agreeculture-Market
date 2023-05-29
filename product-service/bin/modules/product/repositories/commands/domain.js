@@ -2,8 +2,8 @@
 // const rp = require('request-promise');
 const model = require('./command_model');
 const command = require('./command');
-// const query = require('../queries/query');
-// const wrapper = require('../../../../helpers/utils/wrapper');
+const query = require('../queries/query');
+const wrapper = require('../../../../helpers/utils/wrapper');
 // const config = require('../../../../infra/configs/global_config');
 const validate = require('validate.js');
 // const logger = require('../../../../helpers/utils/logger');
@@ -14,6 +14,11 @@ const validate = require('validate.js');
 class Product{
 
   async addNewProduct(payload){
+    const { id } = payload;
+    const product = await query.findOneProduct({id});
+    if (!product.err) {
+      return wrapper.error('error', 'product already exist', 400);
+    }
     const data = [payload];
     let view = model.generalProduct();
     view = data.reduce((accumulator, value) => {
@@ -33,6 +38,11 @@ class Product{
   }
 
   async updateProduct(params, payload){
+    const { id } = payload;
+    const product = await query.findOneProduct({id});
+    if (product.err) {
+      return wrapper.error('error', 'product not found', 404);
+    }
     const data = [payload];
     let view = model.generalProduct();
     view = data.reduce((accumulator, value) => {
